@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mabatis.rog/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="hello.Mybatis.domain.orders.JoinRepository">
+
+    <resultMap type="hello.Mybatis.domain.orders.Order" id="memberIncludeMap">
+        <result column="orderId" property="orderId"/>
+        <result column="orderStatus" property="orderStatus"/>
+        <result column="orderDate" property="orderDate"/>
+        <collection property="accountMember" resultMap="AccountMember" />
+        <collection property="accountOrderItem" resultMap="AccountOrderItem" />
+        <collection property="accountItem" resultMap="AccountItem" />
+        <collection property="accountDelivery" resultMap="Delivery" />
+    </resultMap>
+
+    <resultMap type="hello.Mybatis.domain.delivery.Delivery" id="Delivery">
+        <result column="status" property="deliveryStatus"/>
+    </resultMap>
+
+    <resultMap type="hello.Mybatis.domain.member.Member" id="AccountMember">
+        <result column="memberName" property="memberName"/>
+    </resultMap>
+
+    <resultMap type="hello.Mybatis.domain.orders.OrderItem" id="AccountOrderItem">
+        <result column="orderItemPrice" property="orderItemPrice"/>
+        <result column="orderItemCount" property="orderItemCount"/>
+    </resultMap>
+
+    <resultMap type="hello.Mybatis.domain.item.Item" id="AccountItem">
+        <result column="itemName" property="itemName"/>
+    </resultMap>
+
+    <select id="findJoinAll" resultMap="memberIncludeMap">
+        select *
+        from orders o
+        inner join Member m on m.memberId = o.memberId
+        inner join OrderItem oi on oi.orderId = o.orderId
+        inner join Item i on i.itemId = oi.itemId
+        inner join Delivery d on o.deliveryId = d.deliveryId
+        WHERE m.memberId = #{memberId}
+        <if test="orderStatus!=null and orderStatus.toString().equals('ORDER') ">
+            AND o.orderStatus = "ORDER"
+        </if>
+        <if test="orderStatus!=null and orderStatus.toString().equals('CANCEL') ">
+            AND o.orderStatus = "CANCEL"
+        </if>
+    </select>
+
+
+
+
+</mapper>

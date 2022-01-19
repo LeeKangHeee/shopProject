@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mabatis.rog/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="hello.Mybatis.domain.orders.OrderRepository">
+
+
+    <insert id="save"  parameterType ="hello.Mybatis.domain.orders.Order" >
+        INSERT orders(
+        orderId,
+        orderDate,
+        orderStatus,
+        deliveryId,
+        memberId
+        ) VALUES (
+        #{orderId},
+        #{orderDate},
+        #{orderStatus},
+        #{deliveryId},
+        #{memberId}
+        )
+    </insert>
+
+    <select id="findOne" resultType="hello.Mybatis.domain.orders.Order">
+        SELECT orderId
+        FROM orders
+        WHERE orderId=#{value}
+    </select>
+
+
+    <select id="findOrderId" resultType="hello.Mybatis.domain.orders.Order">
+        SELECT orderId
+        FROM orders
+        WHERE deliveryId=#{deliveryId} and memberId = #{memberId}
+    </select>
+
+    <update id="updateStatus" parameterType="hello.Mybatis.domain.orders.Order">
+        UPDATE orders
+        SET orderStatus =#{orderStatus}
+        WHERE orderId = #{orderId}
+    </update>
+
+</mapper>

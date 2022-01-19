@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+  <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+
+  <div>
+    <label for="boardTitle">제목</label>
+    <input type="text" id="boardTitle" name="boardTitle" class="form-control"
+            th:value="${board.boardTitle}" readonly>
+  </div>
+  <div>
+    <label for="boardContent">내용</label>
+    <input type="text" id="boardContent" name="boardContent" class="form-control"
+            th:value="${board.boardContent}" readonly>
+  </div>
+  <div>
+    <label for="userId">작성자</label>
+    <input type="text" id="userId" name="userId" class="form-control"
+            th:value="${board.userId}" readonly>
+  </div>
+
+  <a class="btn btn-lg btn-secondary" href="/board">뒤로가기</a>
+
+<!--  자기자신의 글만 수정,삭제 버튼 활성화-->
+  <a th:if = "${board.userId} == ${loginId}" class="btn btn-lg btn-secondary" th:href="@{'/board/' + ${board.boardId} + '/edit'}">수정</a>
+  <a th:if = "${board.userId} == ${loginId}" class="btn btn-lg btn-secondary" th:href="@{'/board/' + ${board.boardId} + '/delete'}">삭제</a>
+
+
+  </form>
+  <br/>
+  <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div>
+        <div>
+            <form th:object="${BoardSearch}" class="form-inline">
+                <div class="form-group mb-2">
+                    <input type="text" th:field="*{findString}" class="form-control" placeholder="검색어"/>
+                </div>
+                <div class="form-group mx-sm-1 mb-2">
+                    <select th:field="*{BoardState}" class="form-control">
+                        <option value="">전체</option>
+                        <option th:each=
+                                        "status : ${T(hello.Mybatis.domain.board.BoardState).values()}"
+                                th:value="${status}"
+                                th:text="${status}">option
+                        </option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">검색</button>
+
+            </form>
+        </div>
+    <p>
+        <a class="btn btn-lg btn-info" href="/board/new" style="float:right">글작성</a>
+    </p>
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>제목</th>
+                <th>내용</th>
+                <th>작성자</th>
+                <th>날짜</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="board : ${boards}">
+                <td th:text="${board.boardTitle}"></td>
+                <td><a th:text="${board.boardContent}" th:href="@{'/board/' + ${board.boardId}}"></a></td>
+                <td th:text="${board.userId}"></td>
+                <td th:text="${board.boardDate}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+</html>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mabatis.rog/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="hello.Mybatis.domain.item.ItemRepository">
+    <select id="findAll" resultType="hello.Mybatis.domain.item.Item">
+        SELECT *
+        FROM item
+    </select>
+
+    <select id="findById" resultType="hello.Mybatis.domain.item.Item">
+        SELECT *
+        FROM item
+        WHERE itemId = #{value}
+    </select>
+
+    <select id="findMyAll" resultType="hello.Mybatis.domain.item.Item">
+        SELECT *
+        FROM item
+        WHERE userId = #{value}
+    </select>
+
+    <select id="findOne" resultType="hello.Mybatis.domain.item.Item">
+        SELECT *
+        FROM item
+        WHERE itemId=#{value}
+    </select>
+
+    <insert id="save"  parameterType ="hello.Mybatis.domain.item.Item" >
+        INSERT item(
+        itemId,
+        itemName,
+        itemQuantity,
+        itemPrice,
+        userId
+        ) VALUES (
+        #{itemId},
+        #{itemName},
+        #{itemQuantity},
+        #{itemPrice},
+        #{userId}
+        )
+    </insert>
+
+    <update id="updateItem" parameterType="hello.Mybatis.domain.item.Item">
+        UPDATE item
+        SET itemName =#{itemName},
+            itemQuantity = #{itemQuantity},
+            itemPrice = #{itemPrice}
+        WHERE itemId = #{itemId}
+    </update>
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mabatis.rog/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="hello.Mybatis.domain.orders.OrderItemRepository">
+
+
+    <insert id="save"  parameterType ="hello.Mybatis.domain.orders.OrderItem" >
+        INSERT orderItem(
+        orderItemId,
+        orderItemCount,
+        orderItemPrice,
+        itemId,
+        orderId
+        ) VALUES (
+        #{orderItemId},
+        #{orderItemCount},
+        #{orderItemPrice},
+        #{itemId},
+        #{orderId}
+        )
+    </insert>
+
+
+    <select id="findByOrderId" resultType="hello.Mybatis.domain.orders.OrderItem">
+        SELECT *
+        FROM orderItem
+        WHERE orderId=#{value}
+    </select>
+</mapper>

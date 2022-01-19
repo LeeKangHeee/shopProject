@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <form th:action="@{/board/new}" th:object="${form}" method="post">
+        <div class="form-group">
+            <label th:for="name">제목</label>
+            <input type="text" th:field="*{boardTitle}" class="form-control"
+                   placeholder="제목을 입력하세요">
+        </div>
+        <div class="form-group">
+            <label th:for="content">내용</label>
+            <input type="text" th:field="*{boardContent}" class="form-control" size="50"
+                   placeholder="내용을 입력하세요">
+        </div>
+        <button type="submit" class="btn btn-primary">글 작성</button>
+        <a class="btn btn-lg btn-secondary" href="/">취소</a>
+    </form>
+    <br/>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>
